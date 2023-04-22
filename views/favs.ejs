@@ -1,0 +1,20 @@
+<%- include("partials/header") -%>
+<div class="container">
+    <a class="btn btn-dark btn-lg" href="/bookstore/Classic" role="button">Classic</a>
+    <a class="btn btn-dark btn-lg" href="/bookstore/Romance" role="button">Romance</a>
+    <a class="btn btn-dark btn-lg" href="/bookstore/Dystopian" role="button">Dystopian</a>
+</div>
+<a class="btn btn-dark btn-lg" href="/sort" role="button">Sort</a>
+<h1>Favourite</h1>
+<%{data.forEach((item)=>{%>
+    <h1><%= item.title %></h1>
+    <h3><%= item.genre %></h3>
+    <p><%= item.price %> $</p>
+    <p><%= item.author %></p>
+    <p><%= item.publisher %></p>
+    <p><%= item.publish_date %></p>
+    <form action="/fav/<%=item.book_id%>" method="post">
+        <button type="submit">Remove fav</button>
+    </form>
+<%})}%>
+<%- include("partials/footer") -%>

@@ -1,0 +1,12 @@
+<%- include("partials/header") -%>
+<h1>Add admin</h1>
+<form action="/admin/dashboard/addadmin" method="post">
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" type = "text" name="message" required>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password">
+    </div>
+    <button type = "submit" class="btn btn-primary active:sacle-95">Add</button>
+</form>
+<%- include("partials/footer") -%>
