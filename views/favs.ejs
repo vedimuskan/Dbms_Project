@@ -1,10 +1,4 @@
 <%- include("partials/header") -%>
-<div class="container">
-    <a class="btn btn-dark btn-lg" href="/bookstore/Classic" role="button">Classic</a>
-    <a class="btn btn-dark btn-lg" href="/bookstore/Romance" role="button">Romance</a>
-    <a class="btn btn-dark btn-lg" href="/bookstore/Dystopian" role="button">Dystopian</a>
-</div>
-<a class="btn btn-dark btn-lg" href="/sort" role="button">Sort</a>
 <h1>Favourite</h1>
 <%{data.forEach((item)=>{%>
     <h1><%= item.title %></h1>
@@ -17,4 +11,5 @@
         <button type="submit">Remove fav</button>
     </form>
 <%})}%>
+<h3>Total Price : <%= sum %></h3>
 <%- include("partials/footer") -%>

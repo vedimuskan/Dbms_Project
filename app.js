@@ -58,13 +58,16 @@ app.get('/favs',async function(req,res){
 	try {
 		const query = `call bookstore.find_fav(${customer});`;
 		const [rows] = await connection.query(query);
+		const q2 = `select bookstore.get_sum(${customer});`
+		const sum = await connection.query(q2);
 		retVal.data = rows[0];
+		retVal.sum = sum[0][0][`bookstore.get_sum(${customer})`];
 	} catch (error) {
 		console.error(error);
 		retVal.error = error;
 		res.render("err",{msg:error,red : "/bookstore",btnName:"Retry"});
 	}finally{
-		res.render("favs",{data:retVal.data});
+		res.render("favs",{data:retVal.data, sum: retVal.sum});
 	}
 });
 
@@ -72,7 +75,7 @@ app.get('/fav/:id', async(req,res)=>{
 	const query = `Insert into favs (customer_id,book_id) values (${customer},${req.params.id})`;
 	await connection.query(query);
 
-	res.redirect('/favs');
+	res.redirect('/bookstore');
 });
 
 app.post('/fav/:id', async(req,res)=>{
