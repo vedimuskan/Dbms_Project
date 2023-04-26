@@ -118,9 +118,8 @@ app.post("/login",async (req,res)=>{
 	const query = 'SELECT * FROM CUSTOMERS WHERE name=?';
 	const [rows] = await connection.query(query, [id]);
 
-	customer = rows[0].customer_id;
-
 	if(rows[0]){
+		customer = rows[0].customer_id;
 	    if(rows[0].password===req.body.password){
 			res.redirect("/bookstore");
 		}
@@ -270,17 +269,23 @@ app.post('/admin/dashboard/addbook', async (req, res) => {
 
 app.get('/bookstore',async (req,res)=>{
 	let retVal = {};
+	let nam;
 
 	try {
 		const query = 'SELECT * FROM Books';
 		const [rows] = await connection.query(query);
+
+		const q2 = 'SELECT name FROM Customers where customer_id=?';
+		const [r2] = await connection.query(q2,[customer]);
+
 		retVal.data = rows;
+		nam = r2[0].name;
 	} catch (error) {
 		console.error(error);
 		retVal.error = error;
 		res.render("err",{msg:error,red : "/bookstore",btnName:"Retry"});
 	}finally{
-		res.render("bookstore",{data:retVal.data});
+		res.render("bookstore",{data:retVal.data, name:nam});
 	}
 });
 
